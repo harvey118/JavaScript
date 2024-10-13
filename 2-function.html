@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    //自訂函式
+    function hello(name = 25) {
+        // name = 10
+        console.log('Hello world', name);
+    }
+
+    hello(); //小括號是執行的意思!!
+
+    console.clear();
+
+    word = function (name) {        //匿名函式，function沒有名字
+        console.log('hello')
+    }
+
+    word = function sayHello(name) {   //有名字函式，function有名字
+        console.log('hello')
+    }
+
+    console.clear();
+
+    (function () {
+        console.log('Hello world');
+    })();
+
+    console.clear();
+
+
+    say1 = function (name) {
+        str = 'hello ' + name;
+        return str;
+    }
+    ans = say1('Harvey')
+    console.log(ans)
+
+
+    say2 = function (name) {
+        return 'hello ' + name;
+    }
+    console.log(say2('Harvey'))
+
+</script>
+
+</html>

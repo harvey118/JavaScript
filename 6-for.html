@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //for (初始;條件;結束動作)
+        for (let i = 0; i < 6; i++) {
+            console.log('hello', (i * 3) + 1)
+        }
+        console.clear()
+
+
+        for (let i = 0; i < 6; i++) {
+            console.log('hello', (i * 2) + 1)
+        }
+        console.clear()
+
+
+        for (let i = 0; i < 6; i++) {
+            console.log('hello', (i * 5))
+        }
+        console.clear()
+
+        for (let i = 1; i <= 9; i++) {
+            for (let j = 1; j <= 9; j++) {
+                console.log(`${i}*${j} =`, i * j)
+            }
+            if (i < 9)
+                console.log('---------')
+        }
+        console.clear()
+
+        for (let i = 0; i < 12; i++) {
+            console.log(2 ** i)
+        }
+        console.clear()
+
+
+        for (let i = 1; i <= 9; i++) {
+            let j = i
+            console.log(`${i}*${j} =`, i * j)
+            //if ()
+
+            console.log(`${i}*${j + 1} =`, i * j + 1)
+            console.log(`${i}*${j + 2} =`, i * j + 2)
+            console.log(`${i}*${j + 3} =`, i * j + 3)
+            console.log(`${i}*${j + 4} =`, i * j + 4)
+            console.log(`${i}*${j + 5} =`, i * j + 5)
+            console.log(`${i}*${j + 6} =`, i * j + 6)
+            console.log(`${i}*${j + 7} =`, i * j + 7)
+            console.log(`${i}*${j + 8} =`, i * j + 8)
+            console.log(`${i}*${j + 9} =`, i * j + 9)
+        }
+        //console.clear()
+
+    </script>
+</body>
+
+</html>

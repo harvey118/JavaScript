@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const lang = 'kr'
+        let ans = null
+
+        switch (lang) {
+            case 'tw':
+                ans = '台灣'
+                break;  //破壞switch結構 跳脫
+            case 'jp':
+                ans = '日本'
+                break;
+            case 'kr':
+                ans = '韓國'
+                break;
+            default:
+                ans = 'unknown'
+                break;
+        }
+        console.log(ans)
+    </script>
+</body>
+
+</html>

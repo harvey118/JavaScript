@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //////////var
+        a = 100;        //臨時變數      //可以刪除
+        var b = 200;    //宣告變數      //不可以刪除(確保變數存在)
+        ///////出租家庭式房子
+        function test() {          ///////當作出租雅房
+            var d = 100;           //只在function內作用，d是區域變數
+            console.log(b, d);     //b是全域變數
+        }
+        test()
+        console.clear();
+
+        function test2() {          ///////當作出租雅房
+            var b = 100;           //只在function內作用，d是區域變數
+            console.log(b);        //b是全域變數
+        }
+
+        console.log('b = ', b);
+        test2()
+        console.log('b = ', b);
+        console.clear();
+
+        if (true) {
+            var e = 100;           //if不是一個區間一個區塊，它是一個全域變數
+            console.log(e);
+        }
+        console.log(e);
+
+
+
+        //////////let/const
+        let aa = 100;   //宣告變數(可以更變的數值)
+        //let aa = 'AA';  //錯誤，因為重新宣告
+        aa = 'AA'         //正確，可以重新指定
+
+        if (true) {
+            let aa = 100;           //let 在區間作用域下，可以宣告獨立使用
+            console.log(aa);
+        }
+        console.log(aa);
+        console.clear();
+
+
+        const cc = 100; //宣告變數(不可更變的數值)
+        //const cc = 'bb' //錯誤
+        //cc = 100        //錯誤
+
+        if (true) {
+            const cc = 300;           //let 在區間作用域下，可以宣告獨立使用
+            console.log(cc);
+        }
+        console.log(cc);
+
+
+        //////////null undefined 空值 NaN
+
+        let aaa = null;     //塞一個值(有值)為"沒有東西的物件"  typeof(null)為object
+        let bbb;            //沒有任何東西定義  typeof(bbb)為undefined
+        let ccc = ' ';      //string 空字串
+        let ddd = 5 * 'a';  //NaN (Not a Number) 非數字
+
+    </script>
+</body>
+
+</html>

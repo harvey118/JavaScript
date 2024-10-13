@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        if (true) {
+            console.log('is true')
+        } else {
+            console.log('is false')
+        }
+        console.log('done')
+
+        if (false) {
+            console.log('is true')
+        } else if (false) {
+            console.log('is false1')
+        } else if (false) {
+            console.log('is false2')
+        } else {
+            console.log('is false')
+        }
+
+
+        const height = 190, face = true, cash = 10000
+
+        if (height > 180 && face && cash > 5000) {
+            console.log('它是高富帥')
+        } else {
+            console.log('它不是高富帥')
+        }
+
+        if ((cash > 5000) && (height > 180 || face)) {
+            console.log('它是高富帥')
+        } else {
+            console.log('它不是高富帥')
+        }
+
+
+        //////////三元運算子
+        let day = 7
+        /*let ans;
+        if (day > 5) ans='假日'
+        else ans='平日'
+
+        console.log(ans)*/
+
+        let ans = day > 5 ? '假日' : '平日';
+        console.log(ans)
+
+
+        
+    </script>
+</body>
+
+</html>
