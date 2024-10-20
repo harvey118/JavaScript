@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //物件 專拿來存資料，陣列 專拿來計算整理用的
+        let sdtA = {
+            name: 'harvey',
+            age: 18,
+            gender: 'male',
+            alive: true,
+            say: function () {
+                console.log('Hello')
+            },
+            saysay: () => console.log('World')
+        };
+
+        const sdtB = { ...sdtA };  //解構與重購，將物件拆開，重新組合(ES6)
+        sdtB.name = 'jack';
+
+        console.clear();
+
+        const mdy = {
+            name: 'jack',
+            alive: false
+        };
+
+        sdtA = { ...sdtA, ...mdy };     //sdtA型態要改為let!!!
+
+    </script>
+</body>
+
+</html>

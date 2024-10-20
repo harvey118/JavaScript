@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        for (let i = 0; i < 10; i++) {
+            if (i === 4)
+                continue; //pass 跳過這回合
+            if (i === 7)
+                break;  //破壞這個迴圈，直接結束for迴圈
+            console.log(i);
+        }
+        console.clear()
+
+        //return，通常在fun內，控制這個fun返回，當下fun的工作結束
+        function resay() {
+            console.log('Say 1');
+            return;
+            console.log('Say 2');
+        }
+
+        resay();
+    </script>
+</body>
+
+</html>

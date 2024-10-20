@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let userName = 'A';   //value of str
+        let userAge = 12;     //value of number
+
+        let myAryAA = new Array(); //正式的宣告，透過建構來完成
+        let myAryAB = [];   //空陣列的語法，暴力指定
+
+        let numArrAA = new Array('A', true, 3);
+        let numArrAB = ['B', true, 3];    //value of array
+
+        //陣列只有索引index跟值value
+
+        //push(value)尾端塞值
+        //pop()尾端刪值
+        //unshift(value)頭端塞值
+        //shift()頭端刪值
+
+        //陣列複製，push()另外寫法
+        let aryInit = [1, 2, 3];
+        //錯誤
+        //let errcloneary = aryInit;      //複製陣列，會造成記憶體汙染，不要這麼做
+
+        //正確
+        let realcloneary = [...aryInit];  //解構與重購，將陣列拆開，重新組合(ES6)
+        let a = [...aryInit, 4, 5];
+        let b = ['A', 'B', ...aryInit];
+
+
+        /////二維陣列
+        function hello() {
+            console.log('hello');
+        }
+        let minAry = ['A', 'B', 'C']
+
+        let nestingAry = [hello, minAry];    //巢狀Array，n維陣列
+
+        let bigAry = [
+            ['A', 'B', 'C'],
+            ['D', 'E', 'F']
+        ]   //巢狀Array，n維陣列
+
+
+        const ary2 = [1, 2, 3];     //保護，變數有無重新指定
+        ary2.push(4);
+    </script>
+</body>
+
+</html>

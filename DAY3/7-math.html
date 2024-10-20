@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        console.log(Math.round(3.4));   //四捨五入
+        console.log(Math.ceil(3.4));    //無條件進位
+        console.log(Math.floor(3.9));   //無條件捨去
+        console.clear();
+
+        console.log(Math.random());     //浮點數亂數，介於 0(包含) ~ 1(不包含) 之間的亂數 (固定樣式)
+        console.clear();
+
+        //e.x. 0~10的隨機整數
+        console.log(Math.floor(Math.random() * 10) + 1);
+        console.clear();
+
+        //e.x. 0~25的隨機整數   //0~25 =>> 0 ~ 0.9999999
+        let rand0to25 = Math.random();
+        rand0to25 *= 26;
+        rand0to25 = Math.floor(rand0to25);
+        console.log(rand0to25);
+        console.clear();
+
+        //e.x. 45~80的隨機整數
+        //(0 + 45) ~ (35 + 45)的隨機整數
+        let rand45to80 = Math.random();     //0 ~ 81.9999999
+        rand45to80 *= 36;
+        rand45to80 = Math.floor(rand45to80 + 45);
+        console.log(rand45to80);
+        console.clear();
+
+
+        //發明1個function rand(min, max) => 指定參數 min~max的隨機整數
+        //然後塞到陣列長度10
+        //方法一
+        function rand(min, max) {
+            let randnum = Math.random();
+            randnum *= (max - min) + 1;
+            randnum = Math.floor(randnum + min);
+            return randnum;
+        }
+
+        //方法二
+        const randd = (min, max) => {
+            let rand = Math.floor(Math.random() * (max - min) + 1) + min;
+            return rand;
+        }
+
+        //方法三
+        const randdd = (min, max) => Math.floor(Math.random() * (max - min) + 1) + min;
+
+
+        //放入陣列10個隨機數
+        const ary = [];
+        for (let i = 0; i < 10; i++) {
+            ary.push(rand(45, 80));
+        }
+        console.log(ary)
+        //or
+        const arr = new Array(10);
+        for (let i = 0; i < 10; i++) {
+            arr[i] = rand(45, 80);
+        }
+        console.log(arr)
+        //or
+        const fakeAry = Array.apply(null, new Array(10)).map((i) => rand(45, 80));
+        console.log(fakeAry);
+
+
+        //(作業)e.x. 產生6個數字[不重複] 1~49
+
+
+    </script>
+</body>
+
+</html>

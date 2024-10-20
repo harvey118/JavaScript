@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const strnum = '100';
+        const realnum = 100;
+        console.log(Number(strnum));    //字串轉數字
+        console.log(+strnum);           //字串轉數字(省略寫法)
+
+        console.log(String(realnum));       //數字轉字串
+        console.log(realnum.toString());    //數字轉字串(省略寫法)
+
+
+        /////強設數字的防呆寫法
+        let input = '500';
+        if (typeof input === 'string') input = +input;
+        console.log(input);
+    </script>
+</body>
+
+</html>

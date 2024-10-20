@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const ary = [];
+        for (let i = 0; i < 5; i++) {
+            ary.push(i * 3);
+        }
+
+        //for陣列列出
+        for (let i = 0; i < ary.length; i++) {
+            console.log(ary[i]);
+        }
+        console.clear();
+
+
+        /////forEach 遍歷印出
+        //方法一
+        function showMe(val, idx) {
+            console.log('hello', val, idx);     //第一個是陣列VALUE，第二個是陣列INDEX
+        }
+        ary.forEach(showMe);
+        console.clear();
+
+        //方法二
+        //省略function的寫法
+        ary.forEach(function (val, idx) {
+            console.log('hello', val, idx);
+        })
+        console.clear();
+
+        //方法三
+        //最省略寫法
+        ary.forEach((val, idx) => console.log('hello', val, idx));
+        console.clear();
+
+
+        /////for of 遍歷物件value
+        for (const item of ary) {
+            console.log(item);
+        }
+        console.clear();
+
+
+        /////filter 尋找所有達到要求回傳元素
+        aaa = ary.filter((val) => val > 8)
+        console.clear();
+
+
+        /////find 尋找第一個達到要求回傳元素
+        bbb = ary.find((val) => val > 8)
+        console.clear();
+
+
+        /////map 映射，抽取每個元素做處理，再放回
+        ccc = ary.map((val) => val + 10)
+        console.clear();
+
+
+        /////reverse 元素反向顯示
+        ddd = ary.reverse()
+        console.clear();
+
+
+        /////sort 元素排序
+        /////reduce() 元素累加器-研究看看!!!
+
+
+        /////補充
+        let aa = showMe;
+        let bb = function (val, idx) {      //匿名fn
+            console.log('hello', val, idx);
+        }
+        let cc = (val, idx) => {            //箭頭fn
+            console.log('hello', val, idx);
+        }
+
+        let dd = (v) => {
+            console.log(v);
+        }   //or
+        let dd1 = (v) => console.log(v);
+
+
+        let ee = (v) => {
+            return v * 3;
+        }   //or
+        //let ee1 = (v) => return v * 3;
+        let ee2 = (v) => v * 3;
+    </script>
+</body>
+
+</html>

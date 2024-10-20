@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //while 初始語句，初始一個值
+        let i = 0;
+
+        while (i < 10) {    //判定成立
+            console.log('do', i);
+            i++;    //結束語句，判定有變化性，才能結束
+        }
+
+        // while (使用者輸入的值 !== 正規表達或指定的密碼規則) {
+        //     情況成立
+        //     顯示, 密碼格式不對, 重新輸入
+        //     操作輸入密碼的對話框
+        // }
+
+        console.clear()
+
+        //do while 相較於while版本，有先偷跑的意思
+        //先執行，再判定
+        let j = 0;
+
+        do {
+            console.log(j);
+            j++;
+        } while (j < 5);
+        console.log('done');
+    </script>
+</body>
+
+</html>

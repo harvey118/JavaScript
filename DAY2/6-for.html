@@ -15,24 +15,13 @@
         }
         console.clear()
 
-
         for (let i = 0; i < 6; i++) {
             console.log('hello', (i * 2) + 1)
         }
         console.clear()
 
-
         for (let i = 0; i < 6; i++) {
             console.log('hello', (i * 5))
-        }
-        console.clear()
-
-        for (let i = 1; i <= 9; i++) {
-            for (let j = 1; j <= 9; j++) {
-                console.log(`${i}*${j} =`, i * j)
-            }
-            if (i < 9)
-                console.log('---------')
         }
         console.clear()
 
@@ -42,23 +31,43 @@
         console.clear()
 
 
+        //2個for迴圈做99乘法表
         for (let i = 1; i <= 9; i++) {
-            let j = i
-            console.log(`${i}*${j} =`, i * j)
-            //if ()
-
-            console.log(`${i}*${j + 1} =`, i * j + 1)
-            console.log(`${i}*${j + 2} =`, i * j + 2)
-            console.log(`${i}*${j + 3} =`, i * j + 3)
-            console.log(`${i}*${j + 4} =`, i * j + 4)
-            console.log(`${i}*${j + 5} =`, i * j + 5)
-            console.log(`${i}*${j + 6} =`, i * j + 6)
-            console.log(`${i}*${j + 7} =`, i * j + 7)
-            console.log(`${i}*${j + 8} =`, i * j + 8)
-            console.log(`${i}*${j + 9} =`, i * j + 9)
+            for (let j = 1; j <= 9; j++) {
+                console.log(`${i}*${j} =`, i * j)
+            }
+            if (i < 9)
+                console.log('---------')
         }
-        //console.clear()
+        console.clear()
 
+        //1個for迴圈的99乘法表
+        for (let i = 2, j = 1; i < 10; j++) {
+            console.log(`${i}*${j} =`, i * j)
+            if (j === 9) {
+                i += 1;
+                j = 0;
+                if (i < 10)
+                    console.log('---------');
+            }
+        }
+        console.clear()
+
+        //1個for迴圈的99乘法表_2
+        for (let i = 1; i <= 9; i++) {
+            let line = '';
+            line += `${i} * 1 = ${i * 1}\t`;
+            line += `${i} * 2 = ${i * 2}\t`;
+            line += `${i} * 3 = ${i * 3}\t`;
+            line += `${i} * 4 = ${i * 4}\t`;
+            line += `${i} * 5 = ${i * 5}\t`;
+            line += `${i} * 6 = ${i * 6}\t`;
+            line += `${i} * 7 = ${i * 7}\t`;
+            line += `${i} * 8 = ${i * 8}\t`;
+            line += `${i} * 9 = ${i * 9}\t`;
+
+            console.log(line);
+        }
     </script>
 </body>
 
