@@ -75,8 +75,42 @@
 
 
         //(作業)e.x. 產生6個數字[不重複] 1~49
+        //方法一
+        let lotto = [];
+        const getBall = [];
 
+        for (let i = 1; i < 50; i++) {
+            lotto.push(i);
+        }
 
+        for (let i = 1; i < 7; i++) {
+            const firstIndex = rand(0, lotto.length - 1);
+            getBall.push(lotto[firstIndex]);
+
+            lotto = lotto.filter(function (val) {
+                console.log(val, lotto[firstIndex], val !== lotto[firstIndex]);
+                return val !== lotto[firstIndex];
+            })
+        }
+
+        //console.log(getBall.sort());
+
+        //方法二
+        let lottoo = new Array(49);
+        let getBalll = [];
+        for (let i = 0; i < lottoo.length; i++) {
+            lottoo[i] = String(i + 1).padStart(2, '0');
+        }
+
+        for (let i = 0; i < 6; i++) {
+            const findIdx = rand(0, lottoo.length - 1);
+            //陣列合併1
+            //getBalll.push(lottoo.splice(findIdx, 1)[0]);
+            //陣列合併2
+            getBalll = getBalll.concat(lottoo.splice(findIdx, 1));
+        }
+
+        console.log(getBalll.sort());
     </script>
 </body>
 

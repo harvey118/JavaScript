@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const now = Date();         //時間(字串顯示
+        const time = new Date();    //時間(物件顯示
+        const lastTime1 = new Date(2024, 11, 31, 23, 59, 59, 999);
+        //此處的11是指index(0-11), 故11等於12月, 999代表毫秒
+        const lastTime2 = new Date('2024-12-31T23:59:59.999');
+
+        let Ans;
+        Ans = time.getFullYear();
+        Ans = time.getMonth();  //索引值要加一
+        Ans = time.getDate();
+        Ans = time.getHours();
+        Ans = time.getMinutes();
+        Ans = time.getSeconds();
+        Ans = time.getMilliseconds();   //毫秒
+        Ans = time.getDay();    //星期 (索引值)
+        Ans = time.getTime();  //時間戳記，單位毫秒，將所有時間換算成總毫秒
+        console.log(time.getFullYear());
+
+
+        //計算倒數計時, 使用getTime進行推算
+        const lastTime = new Date(time.getFullYear() + 1, 0);
+        let diffTime = lastTime.getTime() - time.getTime(); //單位總毫秒
+        console.log(diffTime);
+
+        diffTime = Math.floor(diffTime / 1000); //單位毫秒
+        console.log(diffTime);
+
+        let testSec = 4215;
+
+        let sec = diffTime % 60;
+        let min = Math.floor(diffTime / 60) % 60;
+        let hour = Math.floor(Math.floor(diffTime / 60) / 60) % 24;
+        //hour = Math.floor(diffTime / 60 / 60) % 24;
+        let day = Math.floor(Math.floor(Math.floor(diffTime / 60) / 60) / 24);
+        //day = Math.floor(diffTime / 60 / 60 / 24);
+
+        console.log(`距離2025年, 還有${day}天${hour}時${min}分${sec}秒`);
+        console.clear();
+
+
+        //set設定時間
+        const nowTime = new Date();
+
+        nowTime.setDate(nowTime.getDate() + 3);     //Date + 2天
+        nowTime.setFullYear(nowTime.getFullYear() + 3);     //Year + 2年
+    </script>
+</body>
+
+</html>

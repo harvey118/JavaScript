@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //window.setTimeout
+        //setTimeout(todo, time)
+
+        // const todo = function() {
+        //     console.log('Bom!');
+        // }
+
+        // setTimeout(function () {
+        //     console.log('Bom!');
+        // }, 3000);
+
+        setTimeout(() => {
+            console.log('Bom1!');
+        }, 3000);
+
+        const timeTag = setTimeout(() => {
+            console.log('Bom2!');
+        }, 4000);
+
+        console.log('Done.');
+        clearTimeout(timeTag);  //清除timeout(timeTag)
+
+        //連續定時炸彈
+        function readyBom() {
+            setTimeout(() => {
+                console.log('readyBom!');
+                readyBom()
+            }, 1000);
+        };
+
+    </script>
+</body>
+
+</html>

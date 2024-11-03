@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //setInterval(todo, replyTime)
+
+        setInterval(() => {
+            const time = new Date();    //時間(物件顯示
+            const lastTime = new Date(time.getFullYear() + 1, 0);
+            let diffTime = lastTime.getTime() - time.getTime(); //單位總毫秒
+            console.log(diffTime);
+
+            diffTime = Math.floor(diffTime / 1000); //單位毫秒
+            console.log(diffTime);
+
+            let testSec = 4215;
+
+            let sec = diffTime % 60;
+            let min = Math.floor(diffTime / 60) % 60;
+            let hour = Math.floor(Math.floor(diffTime / 60) / 60) % 24;
+            //hour = Math.floor(diffTime / 60 / 60) % 24;
+            let day = Math.floor(Math.floor(Math.floor(diffTime / 60) / 60) / 24);
+            //day = Math.floor(diffTime / 60 / 60 / 24);
+            console.clear();
+            console.log(`距離${time.getFullYear() + 1}年, 還有${day}天${hour}時${min}分${sec}秒`);
+        }, 1000);
+        console.clear();
+
+        let i = 0;
+        const getTag = setInterval(() => {
+            console.log('Bom3!');
+            i++;
+
+            if (i === 5) {
+                clearInterval(getTag);
+                open('http://http.google.com/');
+            }
+        }, 1000);
+        console.clear();
+
+    </script>
+</body>
+
+</html>

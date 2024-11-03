@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //BOM底下的物件分支為document、screen、history、location、navigator 及 frames。
+
+        //window.screen 解析度
+
+        //window.history 歷史紀錄
+        history.back();      //上一頁
+        history.forward();   //下一頁
+        history.go(1);       //往前一頁
+        history.go(-2);      //往後二頁
+
+        //window.location 網址
+        location.href;       //目前網址
+        location.assign('http...');     //設定目標網址
+
+        //window.alert 彈跳視窗
+        alert('hello world');
+        //新套件彈跳視窗  https://sweetalert2.github.io/
+        //https://summer10920.github.io/2020/04-22/js-sampleclass-5/?highlight=swee
+
+        var confirm = confirm("question, select yes or no"); //提問, 回傳布林值
+        alert(`you select ${confirm}`);
+
+        var prompt = prompt("question", "default value");   //提問取得字串並回傳
+        alert(`you report is ${prompt}`);
+    </script>
+</body>
+
+</html>

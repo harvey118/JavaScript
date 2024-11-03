@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+
+    <!-- 不建議寫法 -->
+    <script>
+        window.onload = function () {
+            //當window載入完成, 才執行這裡
+            console.log('ON load');
+        }
+    </script>
+</head>
+
+<body>
+    <h1 id="loki" title="is header element">Hello World</h1>
+    <img src="https://picsum.photos/300/200/?random=10" class="myImg">
+    <ul id="demo">
+        <li class="list">Item1</li>
+        <li class="list hot">Item2</li>
+        <li class="list">Item3</li>
+        <li class="list">Item4</li>
+        <li class="list">Item5</li>
+    </ul>
+    <form>
+        <input type="text">
+        <input type="submit" value="submit">
+    </form>
+
+
+    <script>
+        //傳統操作
+        let geth1 = document.getElementById('loki').innerHTML;  //string
+        let geth2 = document.getElementById('loki');            //object
+        let geth3 = document.getElementById('demo');
+
+        geth1 = 'john';      //錯誤呼叫(因為是字串)
+        geth2.innerHTML = 'harvey';  //正確呼叫(應為物件)
+
+        console.log(geth3.innerHTML);       //innerHTML修改 HTML 的格式進行更改
+        console.log(geth3.textContent);     //textContent修改畫面文字
+
+
+        //主流操作(ES6)
+        console.log(document.querySelector('#loki'));
+        console.log(document.querySelectorAll('.list'));
+        console.log(document.querySelector('#demo>.hot'));
+        console.log(document.querySelector('#demo>li.hot'));
+
+        console.log(document.querySelector('#demo>li:nth-child(3)'));
+        console.log(document.querySelectorAll('#demo>li:not(.hot)'));   //不是hot的標籤
+    </script>
+</body>
+
+</html>
