@@ -14,10 +14,10 @@ let
     normalCount: 0, // 平日入住數
     holidayCount: 0, // 平日入住數
     pallet: { //營位資料 => 標題名稱、可賣數量、預約日金、小計、訂購數
-      aArea: { title: '河畔 × A 區', sellCount: 5, sellInfo: '<div></div>', sumPrice: 0, orderCount: 0 },
-      bArea: { title: '山間 × B 區', sellCount: 6, sellInfo: '<div></div>', sumPrice: 0, orderCount: 0 },
-      cArea: { title: '平原 × C 區', sellCount: 7, sellInfo: '<div></div>', sumPrice: 0, orderCount: 0 },
-      dArea: { title: '車屋 × D 區', sellCount: 8, sellInfo: '<div></div>', sumPrice: 0, orderCount: 0 }
+      aArea: { title: '河畔 × A 區', sellCount: 0, sellInfo: '<div></div>', sumPrice: 0, orderCount: 0 },
+      bArea: { title: '山間 × B 區', sellCount: 0, sellInfo: '<div></div>', sumPrice: 0, orderCount: 0 },
+      cArea: { title: '平原 × C 區', sellCount: 0, sellInfo: '<div></div>', sumPrice: 0, orderCount: 0 },
+      dArea: { title: '車屋 × D 區', sellCount: 0, sellInfo: '<div></div>', sumPrice: 0, orderCount: 0 }
     }
   };
 
@@ -38,10 +38,6 @@ const init = () => {
 
       //規劃DOM事件
       document.querySelector('a[href="#prevCtrl"]').onclick = (e) => {
-        //console.log('Left');
-
-        //theDay = theDay.add(1, 'month');
-        //runCalendarService();
         e.preventDefault();
         myCalender.sub();
       };
@@ -50,6 +46,85 @@ const init = () => {
         e.preventDefault();
         myCalender.add();
       });
+
+      //計算4個房型的總價
+      document.querySelectorAll('select').forEach(nodeSelect => {
+        nodeSelect.onchange = (e) => {
+          tableData.totalPrice = 0;
+          document.querySelectorAll('select').forEach(item => {   //4組相加的總價
+            tableData.totalPrice += parseInt(item.value) * tableData.pallet[item.name].sumPrice;
+
+            //更新tableData的四組orderCount，方便獲取該有的情況
+            tableData.pallet[item.name].orderCount = parseInt(item.value);
+          });
+
+          //更新總價
+          document.querySelector('#selectPallet h3').textContent = `
+          $${tableData.totalPrice} / ${tableData.normalCount}晚平日，${tableData.holidayCount}晚假日`;
+        }
+      });
+
+      //製作左側彈窗
+      const orderOffcanvas = new bootstrap.Offcanvas('.offcanvas'); //左側彈窗bootstrap建構函式
+      document.querySelector('#selectPallet button').onclick = (e) => {
+        let liStr = '';
+
+        for (const key in tableData.pallet) {
+          if (tableData.pallet[key].orderCount === 0) continue;
+
+          liStr += `
+          <li class="list-group-item d-flex justify-content-between align-items-start">
+            <div class="ms-2 me-auto">
+              <div class="fw-bold"> ${tableData.pallet[key].title} </div>
+              <div>
+                ${tableData.pallet[key].sellInfo}
+              </div>
+            </div>
+            <span class="badge bg-warning rounded-pill">x <span class="fs-6">${tableData.pallet[key].orderCount}</span>
+          </li>`;
+        }
+        document.querySelector('#orderForm ol').innerHTML = liStr;
+        document.querySelector('#orderForm .card-header.h5').innerHTML = document.querySelector('#selectPallet h3').textContent;
+        orderOffcanvas.show();
+      }
+
+      //JSON 跟 Object不一樣  //** 面試必問 **//
+      //回傳給後端存數值
+      document.forms.orderForm.onsubmit = (e) => {
+        e.preventDefault();
+        const sendData = new FormData(e.target);
+
+        const selectData = [...document.querySelectorAll('li.selectHead, li.selectConnect')].map(i => i.dataset.date);
+        sendData.append('selectData', JSON.stringify(selectData));
+
+        const sellout = {};
+        Object.keys(tableData.pallet).forEach(key => {
+          sellout[key] = tableData.pallet[key].orderCount
+        })
+        sendData.append('selectData', JSON.stringify(sellout));
+
+        // for (const [key, value] of sendData) {
+        //   console.log(key, value);
+        // }
+
+
+        //驗證輸入的正確性
+        if (!e.target.checkValidity()) e.target.classList.add('was-validated');
+        else {
+          fetch('https://jsonplaceholder.typicode.com/posts', {
+            method: 'POST',
+            body: sendData,
+            //body: JSON.stringify({ userName: 1, password: 2 }),
+            // headers: { 'Content-Type': 'multipart/form-data' }
+          }).then(response => response.json())
+            .then(res => {
+              if (res.id) {
+                alert('感謝預約，您的訂單為: ' + res.id);
+                document.location.reload();   //畫面重載
+              }
+            });
+        }
+      }
 
       myCalender.tableRefresh();
     });
@@ -72,6 +147,7 @@ const runCalendarService = () => {
 
   const today = dayjs();
   const userChooseDays = [null, null];
+  const initTableDataStr = JSON.stringify(tableData);
   const
     changeMonth = (num) => {
       theDay = theDay.add(num, 'month');
@@ -205,7 +281,40 @@ const runCalendarService = () => {
     },
 
     tableMaker = () => {
-      console.log('整理 tableData');
+      tableData = JSON.parse(initTableDataStr);  //乾淨的tableData
+
+      for (const key in tableData.pallet) {
+        tableData.pallet[key].sellCount = pallet[key].total;
+      }
+
+      document.querySelectorAll('li.selectHead, li.selectConnect').forEach(item => {
+        for (const key in tableData.pallet) {
+          const hasOrder = booked.find(bookItem => bookItem.date === item.dataset.date);
+
+          //如果後端有找到當日訂單，更新房況剩餘數
+          if (hasOrder) {
+            tableData.pallet[key].sellCount = Math.min(tableData.pallet[key].sellCount, pallet[key].total - hasOrder.sellout[key]);
+          }
+
+          //如果房況有剩，提供該key的販售資訊
+          if (tableData.pallet[key].sellCount) {
+            //const dayPrice = item.classList.contains('holiday') ? pallet[key].holidayPrice : pallet[key].normalPrice;
+            const dayPrice = pallet[key][item.classList.contains('holiday') ? 'holidayPrice' : 'normalPrice'];
+
+            //console.log(item.dataset.date, dayPrice);
+            tableData.pallet[key].sellInfo += `<div>${item.dataset.date} (${dayPrice})</div>`;
+            tableData.pallet[key].sumPrice += dayPrice;
+          } else {
+            tableData.pallet[key].sellInfo = `<div>已售完</div>`;
+            tableData.pallet[key].sumPrice = 0;
+          }
+        }
+
+        //item.classList.contains('holiday') ? tableData.holidayCount++ : tableData.normalCount++;
+        tableData[item.classList.contains('holiday') ? 'holidayCount' : 'normalCount']++;
+      });
+
+      tablePrint();
     },
 
     tablePrint = () => {
