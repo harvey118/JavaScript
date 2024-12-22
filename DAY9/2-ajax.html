@@ -6,9 +6,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="./jquery-3.7.1.min.js"></script>
+    <style>
+        .insert-zone {
+            position: fixed;
+            background: #333333AA;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-basis: 50%;
+            color: white;
+            font-weight: bolder;
+            text-align: center;
+        }
+
+        .insertzone>form {
+            width: 100%;
+        }
+
+        .add-zone {
+            position: fixed;
+            bottom: 50px;
+            right: 50px;
+
+            div {
+                background: #333;
+                color: white;
+                font-weight: bolder;
+                border-radius: 50%;
+                font-size: 50px;
+                width: 50px;
+                height: 50px;
+                vertical-align: middle;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+                transition: all 0.5s;
+
+                &:hover {
+                    background-color: #777;
+                }
+            }
+        }
+    </style>
+    <div class="insertzone" style="display: none;">
+        <!-- 
+          這裡不先寫好 HTML 是因為我們網頁不會重整，因此第二次進行新增時 HTML 子元素需要清掉
+          因此直接由 JavaScript 來設計較適宜
+        -->
+    </div>
 </head>
 
 <body>
+    <div class="add-zone">
+        <div>+</div>
+    </div>
     <table width="100%">
         <thead>
             <tr>
@@ -35,9 +91,30 @@
             </tr>
         </tfoot>
     </table>
+    <div class="insert-zone" style="display: none;">
+        <form action="">
+            <h1>新增動物資料</h1>
+            <hr>
+            <p>動物：<input type="text" name="name"></p>
+            <p>重量：<input type="text" name="weight"></p>
+            <p>簡介：<input type="text" name="info"></p>
+            <hr>
+            <p>
+                <!-- 注意 button 沒有 type 會形同 submit -->
+                <button type="button" onclick="insertAnimal(this)">新增</button>
+                <button type="button" onclick="closeAddform()">取消</button>
+            </p>
+        </form>
+        <!-- 
+          這裡不先寫好 HTML 是因為我們網頁不會重整，因此第二次進行新增時 HTML 子元素需要清掉
+          因此直接由 JavaScript 來設計較適宜
+        -->
+    </div>
+
     <script>
         let start = 0;
         const loadBtn = $('tfoot button');
+        const addBtn = $('.add-zone div');
 
         const selectAnimal = () => {
             //方法一
@@ -60,6 +137,8 @@
 
                     //接收到的Btn現在才可使用
                     $('.mdy').click(changeInputEL);
+                    //$('.mdy').next().click(deleteAnimal);
+                    //$('.del').click(deleteAnimal);
 
                     start += 10;
                 } else loadBtn.attr('disabled', true).text('沒有更多了');
@@ -75,29 +154,77 @@
             // })
         }
 
-        const changeAnimal = (e) => {
+        const changeAnimal = (e) => {   //此fn負責將指定的input，壓縮成serialize(form Data)，透過AJAX提交給後端
             const saveBtn = $(e.target);
             const data = saveBtn.parents('tr').find('input').serialize();
 
             $.post(
                 'http://192.168.211.1/api.php?do=update',
                 data,
-                function (res) {
-                    console.log('done');
+                function (res) {    //後端會返回更新時間給前端，並指定動作
+                    //console.log('done');
+
+                    const uncles = saveBtn.parent().siblings();
+
+                    const id = uncles.eq(0).find('input').val();
+                    const name = uncles.eq(1).find('input').val();
+                    const weight = uncles.eq(2).find('input').val();
+                    const info = uncles.eq(3).find('input').val();
+                    const theTime = res;
+
+                    uncles.parent().html(`
+                        <td>${id}</td>
+                        <td class="name">${name}</td>
+                        <td>${weight}</td>
+                        <td>${info}</td>
+                        <td>${theTime}</td>
+                        <td>
+                            <button class="mdy">修改</button>
+                            <button class="del" onclick="deleteAnimal(this)">刪除</button>
+                        </td>
+                    `).find('.mdy').click(changeInputEL);
+                    //$('.mdy').click(changeInputEL);
                 }
             )
         }
+
+        const deleteAnimal = (node) => {
+            const id = $(node).parent().siblings().eq(0).text();
+
+            $.post('http://192.168.211.1/api.php?do=delete', { id }, function (res) {
+                if (res === 'deleted') {
+                    $(node).parents('tr').remove();
+                }
+            });
+
+        }
+
+        const insertAnimal = (node) => {
+            const data = $(node).parent().siblings().find('input').serialize();
+
+            $.post('http://192.168.211.1/api.php?do=insert', data, function (res) {
+                if (res === 'inserted') {
+                    closeAddForm(); //新增成功後，關閉新增表單
+
+                    $('tbody').empty(); //清空原本的表格
+                    start = 0;          //重置start值
+                    selectAnimal();     //重新載入表格
+                }
+            });
+        }
+
 
         //方法一            
         // const changeInputEL = function () {
         //     console.log(this);
         // }
-        const changeInputEL = (e) => {
+        const changeInputEL = (e) => {  //此fn負責該行指定的td內容變成input
             //console.log(e.target);
             const currentMdyBtn = $(e.target);
             const uncles = currentMdyBtn.parent().siblings();
 
-            currentMdyBtn.parents('tr').html(`
+            currentMdyBtn.parents('tr').
+                html(`
                 <td>
                     <input type="hidden" name="id" value="${uncles.eq(0).text()}">
                     ${uncles.eq(0).text()}
@@ -115,10 +242,35 @@
                 <td>
                     <button class="save">儲存</button>
                 </td>
-                `).find('.save').click(changeAnimal);
+                `)
+                .find('.save')
+                .click(changeAnimal);
+        }
+
+        const activeAddform = () => {
+            $('.insert-zone').html(`
+            <form action="">
+                <h1>新增動物資料</h1>
+                <hr>
+                <p>動物：<input type="text" name="name"></p>
+                <p>重量：<input type="text" name="weight"></p>
+                <p>簡介：<input type="text" name="info"></p>
+                <hr>
+                <p>
+                    <button type="button" onclick="insertAnimal(this)">新增</button>
+                    <button type="button" onclick="closeAddForm()">取消</button>
+                </p>
+            </form>
+            `).fadeIn();
+            //`).show(500);
+        }
+
+        const closeAddForm = () => {
+            $('.insert-zone').fadeOut();
         }
 
         loadBtn.click(selectAnimal);
+        addBtn.click(activeAddform);
 
         selectAnimal();
 
