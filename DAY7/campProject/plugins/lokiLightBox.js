@@ -25,7 +25,7 @@
                 //mainZoneNode.querySelector('img').src = colNode.querySelector('img').src;
                 //mainZoneNode.querySelector('p').textContent = colNode.querySelector('h5').textContent;
 
-                mainZoneNode.click();
+                newMinImgNode.click();
 
                 lightBoxNode.classList.add('active');
             });
