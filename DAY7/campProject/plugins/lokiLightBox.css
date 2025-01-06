@@ -11,7 +11,7 @@
   text-align: center;
 }
 
-#lokiLightBox .active {
+#lokiLightBox.active {
   display: flex;
 }
 
